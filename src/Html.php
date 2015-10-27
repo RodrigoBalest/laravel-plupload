@@ -29,11 +29,21 @@ class Html
      * @var string
      */
     protected $pickFilesButton;
+    
+    /**
+     * @var string
+     */
+    protected $pickFilesButtonLabel = 'Browse';
 
     /**
      * @var string
      */
     protected $uploadButton;
+    
+    /**
+     * @var string
+     */
+    protected $uploadButtonLabel = 'Upload';
 
     public function __construct($id, $url)
     {
@@ -63,7 +73,7 @@ class Html
         if (!$this->pickFilesButton) {
             $this->pickFilesButton = '
 				<a class="btn btn-primary btn-browse" id="'.$options['browse_button'].'" href="javascript:;">
-					<i class="fa fa-file"></i> Browse
+					<i class="fa fa-file"></i> ' . $this->pickFilesButtonLabel . '
 				</a>
 			';
         }
@@ -71,7 +81,7 @@ class Html
         if (!$this->uploadButton) {
             $this->uploadButton = '
 				<a class="btn btn-default btn-upload" id="uploader-'.$this->id.'-upload" href="javascript:;">
-					<i class="fa fa-upload"></i> Upload
+					<i class="fa fa-upload"></i> ' . $this->uploadButtonLabel . '
 				</a>
 			';
         }
@@ -156,6 +166,13 @@ class Html
 
         return $this;
     }
+    
+    public function setPickFilesButtonLabel($label)
+    {
+        $this->pickFilesButtonLabel = $label;
+
+        return $this;
+    }
 
     /**
      * Set uploader upload button.
@@ -167,6 +184,13 @@ class Html
     public function setUploadButton($button)
     {
         $this->uploadButton = $button;
+
+        return $this;
+    }
+    
+    public function setUploadButtonLabel($label)
+    {
+        $this->uploadButtonLabel = $label;
 
         return $this;
     }
@@ -189,6 +213,6 @@ class Html
     {
         $this->init();
 
-        return view($view, $this->data);
+        return view($view, array_merge($this->data, $extra));
     }
 }
